@@ -5,114 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electricity Billing System</title>
 
-    <!-- External CSS -->
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="container">
+<div class="bill-container">
 
-    <h1>⚡ Electricity Billing System</h1>
-    <p class="subtitle">Generate Electricity Bill</p>
+    <div class="bill-header">
+
+        <div class="logo">
+            ⚡
+        </div>
+
+        <div class="company">
+            <h1>MAHARASHTRA STATE ELECTRICITY</h1>
+            <h2>DISTRIBUTION COMPANY LIMITED</h2>
+            <p>Electricity Billing System</p>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Consumer Details</h2>
 
     <form action="bill.php" method="POST">
 
-        <!-- Month -->
-        <div class="input-group">
-            <label>Select Month</label>
+        <table class="info-table">
 
-            <select name="month" required>
+            <tr>
+                <td><strong>Billing Month</strong></td>
+                <td>
+                    <select name="month" required>
+                        <option value="">-- Select Month --</option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                    </select>
+                </td>
+            </tr>
 
-                <option value="">-- Select Month --</option>
+            <tr>
+                <td><strong>Customer Name</strong></td>
+                <td>
+                    <input type="text"
+                           name="name"
+                           placeholder="Enter Customer Name"
+                           required>
+                </td>
+            </tr>
 
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
+            <tr>
+                <td><strong>Address</strong></td>
+                <td>
+                    <textarea
+                        name="address"
+                        rows="4"
+                        placeholder="Enter Complete Address"
+                        required></textarea>
+                </td>
+            </tr>
 
-            </select>
-        </div>
+            <tr>
+                <td><strong>Mobile Number</strong></td>
+                <td>
+                    <input type="tel"
+                           name="mobile"
+                           maxlength="10"
+                           pattern="[0-9]{10}"
+                           placeholder="Enter Mobile Number"
+                           required>
+                </td>
+            </tr>
 
-        <!-- Customer Name -->
+            <tr>
+                <td><strong>Units Consumed</strong></td>
+                <td>
+                    <input type="number"
+                           name="units"
+                           min="1"
+                           placeholder="Enter Number of Units"
+                           required>
+                </td>
+            </tr>
 
-        <div class="input-group">
+        </table>
 
-            <label>Customer Name</label>
+        <div class="button-group">
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Enter Customer Name"
-                required
-            >
-
-        </div>
-
-        <!-- Address -->
-
-        <div class="input-group">
-
-            <label>Address</label>
-
-            <textarea
-                name="address"
-                rows="5"
-                placeholder="Enter Complete Address"
-                required
-            ></textarea>
-
-        </div>
-
-        <!-- Mobile -->
-
-        <div class="input-group">
-
-            <label>Mobile Number</label>
-
-            <input
-                type="tel"
-                name="mobile"
-                pattern="[0-9]{10}"
-                maxlength="10"
-                placeholder="Enter 10 Digit Mobile Number"
-                required
-            >
-
-        </div>
-
-        <!-- Units -->
-
-        <div class="input-group">
-
-            <label>Number of Units Consumed</label>
-
-            <input
-                type="number"
-                name="units"
-                min="1"
-                placeholder="Enter Units"
-                required
-            >
+            <button type="submit" class="btn">
+                ⚡ Generate Bill
+            </button>
 
         </div>
-
-        <!-- Submit Button -->
-
-        <button type="submit">
-            Generate Bill
-        </button>
 
     </form>
 

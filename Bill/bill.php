@@ -14,238 +14,290 @@ $units = (int)$_POST['units'];
 
 $amount = 0;
 
-// Slab-wise Bill Calculation
+// Slab Calculation
 if ($units <= 50) {
     $amount = $units * 3.50;
 }
 elseif ($units <= 100) {
-    $amount = (50 * 3.50) +
-              (($units - 50) * 4.00);
+    $amount = (50 * 3.50) + (($units - 50) * 4.00);
 }
 elseif ($units <= 250) {
-    $amount = (50 * 3.50) +
-              (50 * 4.00) +
-              (($units - 100) * 5.20);
+    $amount = (50 * 3.50) + (50 * 4.00) + (($units - 100) * 5.20);
 }
 else {
-    $amount = (50 * 3.50) +
-              (50 * 4.00) +
-              (150 * 5.20) +
-              (($units - 250) * 6.50);
+    $amount = (50 * 3.50) + (50 * 4.00) + (150 * 5.20) + (($units - 250) * 6.50);
 }
 
-// Save into Database
-$sql = "INSERT INTO bills
-(month, customer_name, address, mobile, units, amount)
-VALUES
-(?, ?, ?, ?, ?, ?)";
+// Save to Database
+$sql = "INSERT INTO bills(month, customer_name, address, mobile, units, amount)
+VALUES(?,?,?,?,?,?)";
 
 $stmt = $conn->prepare($sql);
-
-$stmt->bind_param(
-    "ssssid",
-    $month,
-    $name,
-    $address,
-    $mobile,
-    $units,
-    $amount
-);
-
+$stmt->bind_param("ssssid", $month, $name, $address, $mobile, $units, $amount);
 $stmt->execute();
+
+$billId = $stmt->insert_id;
+$billNo = "EB" . date("Y") . str_pad($billId, 5, "0", STR_PAD_LEFT);
+
+// Due Date = 10 days from today
+$dueDate = date("d-m-Y", strtotime("+10 days"));
+
+// Slab Details
+$slab1 = min($units,50);
+$slab2 = ($units>50)?min($units-50,50):0;
+$slab3 = ($units>100)?min($units-100,150):0;
+$slab4 = ($units>250)?$units-250:0;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Electricity Bill</title>
 
 <link rel="stylesheet" href="css/style.css">
-
-<style>
-
-.bill{
-
-max-width:700px;
-
-margin:40px auto;
-
-background:white;
-
-padding:30px;
-
-border-radius:10px;
-
-box-shadow:0 0 15px rgba(0,0,0,.2);
-
-}
-
-.bill h2{
-
-text-align:center;
-
-margin-bottom:20px;
-
-}
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-td{
-
-padding:12px;
-
-border-bottom:1px solid #ddd;
-
-}
-
-th{
-
-padding:12px;
-
-background:#2e8b57;
-
-color:white;
-
-}
-
-.button-group{
-
-margin-top:30px;
-
-display:flex;
-
-gap:15px;
-
-justify-content:center;
-
-flex-wrap:wrap;
-
-}
-
-.btn{
-
-padding:12px 25px;
-
-background:#2e8b57;
-
-color:white;
-
-text-decoration:none;
-
-border:none;
-
-cursor:pointer;
-
-border-radius:5px;
-
-font-size:16px;
-
-}
-
-.btn:hover{
-
-background:#1d6d46;
-
-}
-
-@media print{
-
-.button-group{
-
-display:none;
-
-}
-
-body{
-
-background:white;
-
-}
-
-.bill{
-
-box-shadow:none;
-
-margin:0;
-
-}
-
-}
-
-</style>
 
 </head>
 
 <body>
 
-<div class="bill">
+<div class="bill-container">
 
-<h2>Electricity Bill</h2>
+<div class="bill-header">
 
-<table>
+<div class="logo">
+
+⚡
+
+</div>
+
+<div class="company">
+
+<h1>MAHARASHTRA STATE ELECTRICITY</h1>
+
+<h2>DISTRIBUTION COMPANY LIMITED</h2>
+
+<p>Official Electricity Bill</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="bill-info">
+
+<div>
+
+<p><strong>Bill Number</strong></p>
+
+<h3><?php echo $billNo; ?></h3>
+
+</div>
+
+<div>
+
+<p><strong>Bill Month</strong></p>
+
+<h3><?php echo $month; ?></h3>
+
+</div>
+
+<div>
+
+<p><strong>Bill Date</strong></p>
+
+<h3><?php echo date("d-m-Y"); ?></h3>
+
+</div>
+
+<div>
+
+<p><strong>Due Date</strong></p>
+
+<h3><?php echo $dueDate; ?></h3>
+
+</div>
+
+</div>
+
+<h2 class="section-title">Customer Information</h2>
+
+<table class="info-table">
 
 <tr>
-<th>Field</th>
-<th>Details</th>
-</tr>
 
-<tr>
-<td>Month</td>
-<td><?php echo htmlspecialchars($month); ?></td>
-</tr>
+<td><strong>Customer Name</strong></td>
 
-<tr>
-<td>Customer Name</td>
 <td><?php echo htmlspecialchars($name); ?></td>
+
 </tr>
 
 <tr>
-<td>Address</td>
-<td><?php echo nl2br(htmlspecialchars($address)); ?></td>
-</tr>
 
-<tr>
-<td>Mobile Number</td>
+<td><strong>Mobile Number</strong></td>
+
 <td><?php echo htmlspecialchars($mobile); ?></td>
+
 </tr>
 
 <tr>
-<td>Units Consumed</td>
-<td><?php echo $units; ?></td>
+
+<td><strong>Address</strong></td>
+
+<td><?php echo nl2br(htmlspecialchars($address)); ?></td>
+
 </tr>
 
 <tr>
-<td>Total Amount</td>
-<td><strong>₹ <?php echo number_format($amount,2); ?></strong></td>
-</tr>
 
-<tr>
-<td>Date</td>
-<td><?php echo date("d-m-Y"); ?></td>
+<td><strong>Units Consumed</strong></td>
+
+<td><?php echo $units; ?> Units</td>
+
 </tr>
 
 </table>
 
+<h2 class="section-title">Electricity Bill Calculation</h2>
+
+<table class="bill-table">
+
+    <tr>
+        <th>Slab</th>
+        <th>Units</th>
+        <th>Rate (₹)</th>
+        <th>Amount (₹)</th>
+    </tr>
+
+    <tr>
+        <td>0 - 50</td>
+        <td><?php echo $slab1; ?></td>
+        <td>3.50</td>
+        <td><?php echo number_format($slab1 * 3.5,2); ?></td>
+    </tr>
+
+    <tr>
+        <td>51 - 100</td>
+        <td><?php echo $slab2; ?></td>
+        <td>4.00</td>
+        <td><?php echo number_format($slab2 * 4,2); ?></td>
+    </tr>
+
+    <tr>
+        <td>101 - 250</td>
+        <td><?php echo $slab3; ?></td>
+        <td>5.20</td>
+        <td><?php echo number_format($slab3 * 5.2,2); ?></td>
+    </tr>
+
+    <tr>
+        <td>Above 250</td>
+        <td><?php echo $slab4; ?></td>
+        <td>6.50</td>
+        <td><?php echo number_format($slab4 * 6.5,2); ?></td>
+    </tr>
+
+</table>
+
+
+<div class="summary">
+
+    <div class="summary-card">
+
+        <h3>Total Units</h3>
+
+        <p><?php echo $units; ?> Units</p>
+
+    </div>
+
+    <div class="summary-card amount">
+
+        <h3>Total Bill Amount</h3>
+
+        <h1>₹ <?php echo number_format($amount,2); ?></h1>
+
+    </div>
+
+</div>
+
+
+<div class="payment-status">
+
+    <span>Payment Status</span>
+
+    <h2>UNPAID</h2>
+
+</div>
+
+
+<div class="notice">
+
+    <h3>Important Instructions</h3>
+
+    <ul>
+
+        <li>Please pay your electricity bill before the due date.</li>
+
+        <li>Late payment may attract additional charges.</li>
+
+        <li>Keep this bill safely for future reference.</li>
+
+        <li>For any billing queries, contact the customer care center.</li>
+
+    </ul>
+
+</div>
+
+
+<div class="footer">
+
+    <div>
+
+        <strong>Generated On</strong><br>
+
+        <?php echo date("d-m-Y H:i"); ?>
+
+    </div>
+
+    <div>
+
+        <strong>Customer Signature</strong>
+
+        <br><br>
+
+        ___________________
+
+    </div>
+
+    <div>
+
+        <strong>Authorized Officer</strong>
+
+        <br><br>
+
+        ___________________
+
+    </div>
+
+</div>
+
+
 <div class="button-group">
 
 <button onclick="window.print()" class="btn">
-Print Bill
+
+🖨 Print Bill
+
 </button>
 
 <a href="index.php" class="btn">
-Generate New Bill
+
+➕ Generate New Bill
+
 </a>
 
 </div>
@@ -253,4 +305,5 @@ Generate New Bill
 </div>
 
 </body>
+
 </html>

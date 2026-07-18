@@ -1,4 +1,3 @@
-/* Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
@@ -9,176 +8,427 @@
 }
 
 body{
-    background:#f4f7fc;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    padding:20px;
-}
-
-.container{
-    background:#fff;
-    width:100%;
-    max-width:600px;
+    background:#eef2f7;
     padding:30px;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
-.container h1{
-    text-align:center;
-    color:#2c3e50;
-    margin-bottom:10px;
-}
+.bill-container{
 
-.subtitle{
-    text-align:center;
-    color:#777;
-    margin-bottom:25px;
-}
+    max-width:900px;
 
-.input-group{
-    margin-bottom:18px;
-}
+    margin:auto;
 
-label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
-    color:#333;
-}
-
-input,
-select,
-textarea{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    font-size:16px;
-    transition:.3s;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#2e8b57;
-    outline:none;
-    box-shadow:0 0 5px rgba(46,139,87,.4);
-}
-
-textarea{
-    resize:vertical;
-}
-
-button{
-    width:100%;
-    background:#2e8b57;
-    color:#fff;
-    border:none;
-    padding:14px;
-    font-size:18px;
-    border-radius:6px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-button:hover{
-    background:#1d6d46;
-}
-
-.bill{
-    width:100%;
-    max-width:700px;
     background:white;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0 5px 20px rgba(0,0,0,.2);
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+
 }
 
-.bill h2{
-    text-align:center;
-    color:#2c3e50;
-    margin-bottom:20px;
-}
+/* ================= HEADER ================= */
 
-table{
-    width:100%;
-    border-collapse:collapse;
-}
+.bill-header{
 
-th{
-    background:#2e8b57;
+    background:#0b8043;
+
     color:white;
-    padding:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:25px;
+
 }
 
-td{
-    border:1px solid #ddd;
-    padding:12px;
+.logo{
+
+    font-size:60px;
+
+    margin-right:25px;
+
 }
+
+.company h1{
+
+    font-size:28px;
+
+}
+
+.company h2{
+
+    font-size:18px;
+
+    font-weight:400;
+
+    margin-top:5px;
+
+}
+
+.company p{
+
+    margin-top:10px;
+
+}
+
+/* ================= BILL INFO ================= */
+
+.bill-info{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:15px;
+
+    padding:25px;
+
+}
+
+.bill-info div{
+
+    background:#f5f5f5;
+
+    border-radius:8px;
+
+    text-align:center;
+
+    padding:15px;
+
+}
+
+.bill-info h3{
+
+    color:#0b8043;
+
+    margin-top:8px;
+
+}
+
+/* ================= TITLES ================= */
+
+.section-title{
+
+    background:#0b8043;
+
+    color:white;
+
+    padding:12px;
+
+    margin:25px;
+
+    border-radius:5px;
+
+}
+
+/* ================= TABLE ================= */
+
+.info-table,
+.bill-table{
+
+    width:calc(100% - 50px);
+
+    margin:0 auto 25px;
+
+    border-collapse:collapse;
+
+}
+
+.info-table td{
+
+    border:1px solid #ddd;
+
+    padding:12px;
+
+}
+
+.bill-table th{
+
+    background:#0b8043;
+
+    color:white;
+
+    padding:12px;
+
+}
+
+.bill-table td{
+
+    border:1px solid #ddd;
+
+    padding:12px;
+
+    text-align:center;
+
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+
+    display:flex;
+
+    justify-content:space-around;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+    padding:25px;
+
+}
+
+.summary-card{
+
+    flex:1;
+
+    min-width:250px;
+
+    background:#f5f5f5;
+
+    border-left:6px solid #0b8043;
+
+    padding:20px;
+
+    border-radius:8px;
+
+}
+
+.summary-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.amount{
+
+    background:#0b8043;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+.amount h1{
+
+    margin-top:10px;
+
+    font-size:40px;
+
+}
+
+/* ================= STATUS ================= */
+
+.payment-status{
+
+    width:300px;
+
+    margin:20px auto;
+
+    background:#ffebee;
+
+    border:2px solid red;
+
+    text-align:center;
+
+    border-radius:10px;
+
+    padding:15px;
+
+}
+
+.payment-status h2{
+
+    color:red;
+
+}
+
+/* ================= NOTICE ================= */
+
+.notice{
+
+    margin:25px;
+
+    background:#fff8e1;
+
+    border-left:6px solid orange;
+
+    padding:20px;
+
+    border-radius:8px;
+
+}
+
+.notice ul{
+
+    margin-top:10px;
+
+    padding-left:20px;
+
+}
+
+.notice li{
+
+    margin:8px 0;
+
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    flex-wrap:wrap;
+
+    padding:30px;
+
+}
+
+/* ================= BUTTON ================= */
 
 .button-group{
-    margin-top:25px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
+
+    text-align:center;
+
+    margin:30px;
+
 }
 
 .btn{
-    text-decoration:none;
-    background:#2e8b57;
+
+    background:#0b8043;
+
     color:white;
-    padding:12px 20px;
-    border-radius:5px;
-    transition:.3s;
+
+    padding:14px 28px;
+
+    border:none;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    margin:10px;
+
+    display:inline-block;
+
 }
 
 .btn:hover{
-    background:#1d6d46;
+
+    background:#086834;
+
 }
+
+/* ================= MOBILE ================= */
 
 @media(max-width:768px){
 
-.container,
-.bill{
-    padding:20px;
-}
+.bill-header{
 
-.container h1{
-    font-size:28px;
-}
+    flex-direction:column;
 
-button{
-    font-size:16px;
-}
-
-table{
-    font-size:14px;
-}
+    text-align:center;
 
 }
 
-@media(max-width:480px){
+.logo{
 
-.container h1{
-    font-size:24px;
+    margin:0 0 15px;
+
 }
 
-.subtitle{
-    font-size:14px;
+.bill-info{
+
+    grid-template-columns:repeat(2,1fr);
+
 }
 
-input,
-select,
-textarea{
+.summary{
+
+    flex-direction:column;
+
+}
+
+.footer{
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+}
+
+@media(max-width:500px){
+
+.bill-info{
+
+    grid-template-columns:1fr;
+
+}
+
+.company h1{
+
+    font-size:22px;
+
+}
+
+.company h2{
+
     font-size:15px;
+
 }
 
-button{
-    padding:12px;
+.amount h1{
+
+    font-size:30px;
+
+}
+
+body{
+
+    padding:10px;
+
+}
+
+}
+
+/* ================= PRINT ================= */
+
+@media print{
+
+body{
+
+background:white;
+
+padding:0;
+
+}
+
+.bill-container{
+
+box-shadow:none;
+
+width:100%;
+
+}
+
+.button-group{
+
+display:none;
+
 }
 
 }
